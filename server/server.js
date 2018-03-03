@@ -24,19 +24,19 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
   // Welcome message form admin
-  socket.emit('welcome', generateMessage('Admin', 'Welcome to the chat app'));
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
   // Event send message to every one but sender
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
   
   // Get new message form user
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('Create Message', message);
 
     // Event send message to every one including sender
     io.emit('newMessage', generateMessage(message.from, message.text));
-    
+    callback('This is from the server');
     /* // Event send message to every one but sender
     socket.broadcast.emit('newMessage', {
       from: message.from,
