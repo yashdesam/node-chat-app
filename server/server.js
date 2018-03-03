@@ -21,14 +21,39 @@ app.use(express.static(publicPath));
 // lets you register a event
 io.on('connection', (socket) => {
   console.log('New user connected');
+
+  // Welcome message form admin
+  socket.emit('welcome', {
+    from: 'Admin',
+    text: 'Welcome buddy',
+    createdAt: new Date().getTime()
+  });
+
+  // Event send message to every one but sender
+    socket.broadcast.emit('newMessage', {
+      from: 'Admin',
+      text: 'New user added',
+      createdAt: new Date().getTime()
+    });
+
   
+  // Get new message form user
   socket.on('createMessage', (message) => {
     console.log('Create Message', message);
+
+    // Event send message to every one including sender
     io.emit('newMessage', {
       from: message.from,
       text: message.text,
       createdAt: new Date().getTime()
     });
+    
+    /* // Event send message to every one but sender
+    socket.broadcast.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    }); */
 });
 
   socket.on('disconnect', () => {

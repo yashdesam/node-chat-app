@@ -2,6 +2,10 @@ var socket = io();
 
 socket.on('connect', function () {
   console.log('Connected to serve');
+
+  socket.on('welcome', (message) => {
+    console.log('Welcome message', message);
+  });
 });
 
 socket.on('disconnect', function () {
