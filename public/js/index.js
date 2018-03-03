@@ -13,7 +13,7 @@ socket.on('disconnect', function () {
 
 });
 
-socket.on('newMessage', function (message) {
-  console.log('Message', message);
+socket.on('newMessage', function (newMessage) {
+  console.log('New message', newMessage);
 });
 

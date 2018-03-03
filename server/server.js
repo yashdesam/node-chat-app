@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
   
   // Creating a new event
   socket.emit('newMessage', {
+    from: 'John',
     text: 'From Server',
     createdAt: 123
   });
